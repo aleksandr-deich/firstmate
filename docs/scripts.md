@@ -6,6 +6,7 @@ If you have changed away from the firstmate home in an interactive shell, invoke
 The shared no-mistakes gate lifecycle boundary is summarized in [architecture.md](architecture.md#no-mistakes-gate-authority-boundary), while `docs/sessionstart-nudge.md` covers the silent session-open hook use; `fm-gate-refuse-lib.sh`'s header owns its exact contract.
 For public path documentation, follow [`fm-public-text-check.sh --help`](../bin/fm-public-text-check.sh): write a refused personal path generically using `~` or a `<user>/<session>` placeholder and check the rewritten text again.
 When `gh` is briefly unavailable, [`fm-pr-check.sh`](../bin/fm-pr-check.sh) says the public text could not be read, leaves readiness unconfirmed, and directs the worker to retry when the tool or forge is available; unread text is never called clean.
+Automatic readiness refusal is GitHub-only: GitLab and Gerrit receive the written pre-publication instructions but no automatic refusal.
 
 | Script                   | Purpose                                                                              |
 | ------------------------ | ------------------------------------------------------------------------------------ |
