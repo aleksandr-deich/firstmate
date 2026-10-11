@@ -136,17 +136,17 @@ fi
 
 if [ "$PROVIDER" = github ] && [ "${FM_PR_CHECK_MERGE:-}" != 1 ]; then
   if ! command -v gh >/dev/null 2>&1 || ! command -v jq >/dev/null 2>&1; then
-    echo 'error: reading public PR text requires gh and jq before reporting ready' >&2
+    echo 'error: public PR text could not be read because gh or jq is unavailable; restore the tools and retry before reporting ready' >&2
     exit 1
   fi
   PUBLIC_JSON=$(gh pr view "$URL" --json title,body 2>/dev/null) || {
-    echo 'error: public PR text could not be read; readiness is unconfirmed' >&2
+    echo 'error: public PR text could not be read; readiness is unconfirmed; retry when the forge is available' >&2
     exit 1
   }
   PUBLIC_TEXT=$(printf '%s' "$PUBLIC_JSON" | jq -er '
     if (.title | type) == "string" and (.body | type) == "string"
     then .title + "\n" + .body else error("unreadable public text") end') || {
-    echo 'error: public PR title/body is unreadable; readiness is unconfirmed' >&2
+    echo 'error: public PR title/body could not be read; readiness is unconfirmed; retry after restoring a readable forge response' >&2
     exit 1
   }
   printf '%s\n' "$PUBLIC_TEXT" | "$SCRIPT_DIR/fm-public-text-check.sh" - || {
