@@ -13,10 +13,10 @@ unsafe=(
   'Private proof: /Users/example/private/report.md'
   '`/home/example/proof.txt`'
   'Evidence at /private/var/folders/example/report.md'
-  'Evidence: /tmp/example/proof.md'
+  'Evidence: /private/tmp/claude-12345/proof.md'
+  'Evidence: /var/folders/example/session/proof.md'
   'Evidence: /workspace/firstmate/data/task/report.md'
   'Evidence: file:///Users/example/proof.md'
-  'Evidence: ~/private/report.md'
   'Evidence: C:\Users\example\proof.md'
   'Evidence: \\example\private\proof.md'
   'Private proof: data/example-task/report.md'
@@ -50,6 +50,9 @@ Public URL paths stay intact: https://example.org/home/example/report.md
 Public host outside the private range: https://172.32.0.1/proof
 Intended system examples: /usr/bin/env, /etc/hosts and /dev/null.
 Web route example: /api/v1/users.
+Generic maintainer examples: ~/.factory/settings.json, ~/.factory/..., ~/.config/..., /opt/homebrew, /tmp/.
+Other generic examples: /usr/local, /etc, /tmp/example.txt, ~/.config/app/settings.json.
+Generic placeholders: /Users/<user>/project/notes.txt, /home/<name>/notes.txt, C:\Users\<name>\notes.txt, /private/tmp/claude-<uid>/notes.txt.
 EOF
 "$CHECK" "$TMP_ROOT/public" || fail 'valid public explanation rejected'
 "$CHECK" - < "$TMP_ROOT/public" || fail 'stdin public explanation rejected'

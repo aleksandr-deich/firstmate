@@ -679,6 +679,9 @@ test_public_evidence_readiness() {
     FM_TEST_PUBLIC_UNREADABLE=1 run_check_entry "$dir" task-a https://github.com/example/repo/pull/37 > "$dir/stdout" 2> "$dir/stderr"; rc=$?
     set -e
     [ "$rc" -ne 0 ] || fail "$mode accepted unreadable publication text"
+    grep -q 'public PR text could not be read.*retry' "$dir/stderr" || fail "$mode omitted the unreadable-text retry remedy"
+    cmp -s "$dir/meta.before" "$dir/home/state/task-a.meta" || fail "unreadable text changed metadata"
+    [ ! -e "$dir/home/state/task-a.check.sh" ] || fail "unreadable text armed monitoring"
   done
   pass "both PR delivery modes refuse unsafe or unreadable public evidence before readiness"
 }

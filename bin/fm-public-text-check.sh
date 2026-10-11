@@ -4,8 +4,10 @@
 # self-contained factual explanations or verified public URLs as evidence.
 # Keep machine-local paths and local-only evidence references in private task
 # records, not in publication text, even when labeled "Private proof".
-# Repository-relative source paths and intended system-path examples are valid.
-# This check rejects recognizable local locations and private evidence roots;
+# Generic documentation paths (tilde, system paths, bare temporary files, and
+# placeholders), repository-relative paths, and web routes remain valid.
+# Write a refused personal path generically with ~ or a <user>/<session> placeholder.
+# This check rejects concrete user/session locations and private evidence roots;
 # it does not prove a URL is public, inspect attachments, or classify arbitrary
 # prose. Authors must verify URL accessibility and inspect remaining text.
 # Run before create/edit/post on the exact outgoing text. Relay enforces this
@@ -24,8 +26,9 @@ case "${1:-}" in
     printf '%s\n' 'Usage: fm-public-text-check.sh <text-file|->' \
       'Check exact outgoing publication text; rejected input is never changed.' \
       'Use verified public URLs or self-contained facts; retain local evidence privately.' \
-      'Recognizes local filesystem locations and private evidence roots, not all secrets.' \
-      'Repository-relative source paths and system-path examples remain valid.'
+      'Recognizes concrete user/session locations and private evidence roots, not all secrets.' \
+      'Generic tilde, system and temporary-file paths, placeholders and repository paths remain valid.' \
+      'Write refused personal paths generically with ~ or a <user>/<session> placeholder.'
     exit 0 ;;
 esac
 [ "$#" -eq 1 ] || { echo 'error: expected one text file or stdin (-)' >&2; exit 2; }
@@ -40,10 +43,12 @@ awk '
   unsafe = text ~ /https?:\/\/([^\/@[:space:]]+@)?(localhost|127\.[0-9.]+|10\.[0-9.]+|192\.168\.[0-9.]+|172\.(1[6-9]|2[0-9]|3[01])\.[0-9.]+|\[::1\]|[^\/[:space:]]+\.local)([:\/[:space:]]|$)/
   gsub(/https?:\/\/[^[:space:]<>"`]+/, "", text)
   if (text ~ /file:\/\// ||
-      text ~ /(^|[^[:alnum:]_.-])\/(users|home|root|tmp|private|volumes|mnt|media|workspace|srv|opt)\// ||
-      text ~ /(^|[^[:alnum:]_.-])\/var\/(folders|tmp)\// ||
-      text ~ /(^|[^[:alnum:]_.-])~\// ||
-      text ~ /(^|[^[:alnum:]_.-])[a-z]:[\\\/]/ ||
+      text ~ /(^|[^[:alnum:]_.-])\/(users|home)\/[^\/[:space:]<>$]+\// ||
+      text ~ /(^|[^[:alnum:]_.-])\/root\// ||
+      text ~ /(^|[^[:alnum:]_.-])\/(private\/)?var\/folders\// ||
+      text ~ /(^|[^[:alnum:]_.-])\/(private\/)?tmp\/claude-[[:alnum:]_-]+\// ||
+      text ~ /(^|[^[:alnum:]_.-])\/[^[:space:]<>]*firstmate\/(data|state|config|projects)\// ||
+      text ~ /(^|[^[:alnum:]_.-])[a-z]:[\\\/]users[\\\/][^\\\/[:space:]<>$]+[\\\/]/ ||
       text ~ /\\\\[[:alnum:]_.-]+\\/ ||
       text ~ /(^|[^[:alnum:]_.-])(\.no-mistakes|\.treehouse)\// ||
       text ~ /(^|[^[:alnum:]_])(private proof|private evidence|local proof|local evidence)[[:space:]]*:/)
