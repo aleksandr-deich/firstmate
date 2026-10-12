@@ -1,0 +1,11 @@
+error: publication text contains a local or private reference at line 1; retain evidence privately and supply public facts or a verified public URL
+rc=1 :: Private proof: /Users/example/private/report.md
+error: publication text contains a local or private reference at line 1; retain evidence privately and supply public facts or a verified public URL
+rc=1 :: Evidence: /workspace/firstmate/data/task/report.md
+error: publication text contains a local or private reference at line 1; retain evidence privately and supply public facts or a verified public URL
+rc=1 :: see /home/alice/x/y.md
+error: publication text contains a local or private reference at line 1; retain evidence privately and supply public facts or a verified public URL
+rc=1 :: http://localhost:8080/a
+rc=0 :: Evidence: https://example.com/Users/x/y/report
+rc=0 :: config at ~/.config/foo and /usr/bin/env and /api/v1/users
+rc=0 :: use /Users/<user>/x/y
