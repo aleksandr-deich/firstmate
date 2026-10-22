@@ -22,7 +22,14 @@
 # GitHub readiness also requires a readable complete title/body passing
 # bin/fm-public-text-check.sh, the public-evidence policy owner. This detects
 # publication failures after the fact; it never edits or redacts public text.
-# Other forges rely on the generated worker read-back instructions.
+# If gh, jq, or the forge response is unavailable or unreadable, readiness stays
+# unconfirmed: restore the tools or readable response and retry before reporting
+# ready. Correct flagged text publicly while retaining the original privately.
+# FM_PR_CHECK_MERGE=1 skips this readiness check as well as the draft check above.
+# Other forges rely on the generated worker read-back instructions, without
+# automatic public-text refusal.
+# Regression coverage: tests/fm-pr-check-security.test.sh exercises readiness;
+# tests/fm-public-text-check.test.sh covers the shared policy and Relay boundary.
 # Usage: fm-pr-check.sh <task-id> <pr-url>
 set -eu
 
