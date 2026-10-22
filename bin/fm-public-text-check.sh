@@ -41,13 +41,13 @@ awk '
   text = tolower($0)
   # URL paths are not filesystem paths. Reject explicitly local URL hosts first.
   unsafe = 0
-  while (match(text, /https?:\/\/[^[:space:]<>"`]+/)) {
+  while (match(text, /https?:\/\/[^[:space:]<>"`|()\047]+/)) {
     url = substr(text, RSTART, RLENGTH)
     text = substr(text, 1, RSTART - 1) substr(text, RSTART + RLENGTH)
     sub(/^https?:\/\//, "", url)
     sub(/[\/?#].*$/, "", url)
     sub(/^.*@/, "", url)
-    sub(/[),;!.]+$/, "", url)
+    sub(/[,;!.]+$/, "", url)
     if (url ~ /^\[/) {
       sub(/\].*$/, "]", url)
       host = url
@@ -57,7 +57,7 @@ awk '
     }
     if (host ~ /^(localhost|127\.[0-9.]+|10\.[0-9.]+|169\.254\.[0-9.]+|192\.168\.[0-9.]+|172\.(1[6-9]|2[0-9]|3[01])\.[0-9.]+|[^[:space:]]+\.local)\.?$/ ||
         host ~ /^\[((0*:)*0*1|f[cd][0-9a-f:]+|fe[89ab][0-9a-f:]+)(%[^]]+)?\]$/ ||
-        host ~ /^\[(0*:)*ffff:(127\.|10\.|169\.254\.|192\.168\.|172\.(1[6-9]|2[0-9]|3[01])\.)[0-9.]+\]$/)
+        host ~ /^\[(0*:)*ffff:((127\.|10\.|169\.254\.|192\.168\.|172\.(1[6-9]|2[0-9]|3[01])\.)[0-9.]+|0*(7f[0-9a-f][0-9a-f]|a[0-9a-f][0-9a-f]|a9fe|c0a8|ac1[0-9a-f]):[0-9a-f]+)(%[^]]+)?\]$/)
       unsafe = 1
   }
   if (text ~ /file:\/\// ||

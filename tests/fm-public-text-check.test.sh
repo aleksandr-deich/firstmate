@@ -43,8 +43,24 @@ unsafe=(
   'Evidence: http://[::1]?report=1'
   'Evidence: http://[0:0:0:0:0:0:0:1]/report'
   'Evidence: http://[::ffff:192.168.1.20]/report'
+  'Evidence: http://[::ffff:c0a8:114]/report'
+  'Evidence: http://[::ffff:7f00:1]/report'
+  'Evidence: http://[::ffff:a00:1]/report'
+  'Evidence: http://[::ffff:a9fe:114]/report'
+  'Evidence: http://[::ffff:ac10:1]/report'
+  'Evidence: http://[::ffff:ac1f:ffff]/report'
+  'Evidence: http://[0:0:0:0:0:ffff:0a00:0001]/report'
+  'Evidence: https://[::FFFF:C0A8:0114]:8080?report=1'
   'Evidence: https://proof.local?report=1'
   'Public then private: https://example.org/report http://localhost?report=1'
+  '|https://example.org/results|http://192.168.1.20/report|'
+  '|http://192.168.1.20/report|https://example.org/results|'
+  '|https://example.org/results|/Users/alice/report|'
+  '|/home/alice/report|https://example.org/results|'
+  '|https://example.org/results|C:\Users\alice\report|'
+  '|https://example.org/results|http://[::ffff:c0a8:114]/report|'
+  '[https://example.org/results](http://localhost?report=1)'
+  '[https://example.org/results](/home/alice/report)'
   'Evidence: https://proof.local/report'
   'Evidence: http://192.168.1.20/private/report.md'
   'Evidence: http://10.0.0.5/proof'
@@ -71,6 +87,10 @@ Public proof: https://github.com/example/repo/actions/runs/123
 Public URL paths stay intact: https://example.org/home/example/report.md
 Public host outside the private range: https://172.32.0.1/proof
 Public IPv6 host: https://[2606:4700:4700::1111]/report
+Public mapped hosts: http://[::ffff:808:808]/report, http://[::ffff:8.8.8.8]/report.
+Public mapped range boundaries: http://[::ffff:ac0f:ffff]/report, http://[::ffff:ac20:1]/report.
+Public table: |https://example.org/home/alice|https://example.net/Users/alice|
+Public link: [https://example.org/results](https://example.net/home/alice)
 Public authorities: https://localhost.example.org?report=1, https://proof.local.example.org/report.
 Public URL components: https://example.org?next=http-localhost, https://example.org/#localhost.
 Public URL credentials: https://localhost@example.org/report
