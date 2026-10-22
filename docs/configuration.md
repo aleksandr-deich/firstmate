@@ -751,6 +751,8 @@ The flag is a home-local supervision-noise preference and is not inherited by se
 
 ## Gate defaults (.no-mistakes.yaml)
 
+Firstmate-dispatched no-mistakes workers omit the generated Intent section from the public PR description while preserving the captain's words in agent handover; [`bin/fm-dod-lib.sh`](../bin/fm-dod-lib.sh) owns that worker contract.
+
 The tracked [`.no-mistakes.yaml`](../.no-mistakes.yaml) sets `test.evidence.store_in_repo: true` and runs the canonical [shell/workflow lint](../bin/fm-lint.sh) followed by the [Pi production-consumer typecheck](../tests/fm-pi-primary-types.test.sh) in the compiler-owning lint phase.
 Storing evidence in the repo publishes each run's test artifacts to the orphan `no-mistakes/evidence` branch and links them from the PR body, instead of keeping them on local disk under the no-mistakes home.
 
@@ -1565,7 +1567,7 @@ Every home requires:
 
 - node and git.
 - gh, with GitHub authentication through `gh auth login`.
-- no-mistakes v1.80.0 or newer.
+- no-mistakes meeting the `NO_MISTAKES_MIN` floor enforced by [`bin/fm-bootstrap.sh`](../bin/fm-bootstrap.sh).
 - Compatible gh-axi.
 - chrome-devtools-axi.
 - Compatible tasks-axi, as specified in "Backlog backend" above.
