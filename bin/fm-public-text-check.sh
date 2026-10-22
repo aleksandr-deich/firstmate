@@ -40,15 +40,33 @@ awk '
 {
   text = tolower($0)
   # URL paths are not filesystem paths. Reject explicitly local URL hosts first.
-  unsafe = text ~ /https?:\/\/([^\/@[:space:]]+@)?(localhost|127\.[0-9.]+|10\.[0-9.]+|192\.168\.[0-9.]+|172\.(1[6-9]|2[0-9]|3[01])\.[0-9.]+|\[::1\]|[^\/[:space:]]+\.local)([:\/[:space:]]|$)/
-  gsub(/https?:\/\/[^[:space:]<>"`]+/, "", text)
+  unsafe = 0
+  while (match(text, /https?:\/\/[^[:space:]<>"`]+/)) {
+    url = substr(text, RSTART, RLENGTH)
+    text = substr(text, 1, RSTART - 1) substr(text, RSTART + RLENGTH)
+    sub(/^https?:\/\//, "", url)
+    sub(/[\/?#].*$/, "", url)
+    sub(/^.*@/, "", url)
+    sub(/[),;!.]+$/, "", url)
+    if (url ~ /^\[/) {
+      sub(/\].*$/, "]", url)
+      host = url
+    } else {
+      sub(/:.*$/, "", url)
+      host = url
+    }
+    if (host ~ /^(localhost|127\.[0-9.]+|10\.[0-9.]+|169\.254\.[0-9.]+|192\.168\.[0-9.]+|172\.(1[6-9]|2[0-9]|3[01])\.[0-9.]+|[^[:space:]]+\.local)\.?$/ ||
+        host ~ /^\[((0*:)*0*1|f[cd][0-9a-f:]+|fe[89ab][0-9a-f:]+)(%[^]]+)?\]$/ ||
+        host ~ /^\[(0*:)*ffff:(127\.|10\.|169\.254\.|192\.168\.|172\.(1[6-9]|2[0-9]|3[01])\.)[0-9.]+\]$/)
+      unsafe = 1
+  }
   if (text ~ /file:\/\// ||
-      text ~ /(^|[^[:alnum:]_.-])\/(users|home)\/[^\/[:space:]<>$]+\// ||
+      text ~ /(^|[^[:alnum:]_.-])\/(users|home)\/[^\/[:space:]<>$]+([[:space:][:punct:]]|$)/ ||
       text ~ /(^|[^[:alnum:]_.-])\/root\// ||
       text ~ /(^|[^[:alnum:]_.-])\/(private\/)?var\/folders\// ||
       text ~ /(^|[^[:alnum:]_.-])\/(private\/)?tmp\/claude-[[:alnum:]_-]+\// ||
       text ~ /(^|[^[:alnum:]_.-])\/[^[:space:]<>]*firstmate\/(data|state|config|projects)\// ||
-      text ~ /(^|[^[:alnum:]_.-])[a-z]:[\\\/]users[\\\/][^\\\/[:space:]<>$]+[\\\/]/ ||
+      text ~ /(^|[^[:alnum:]_.-])[a-z]:[\\\/]users[\\\/][^\\\/[:space:]<>$]+([[:space:][:punct:]]|$)/ ||
       text ~ /\\\\[[:alnum:]_.-]+\\/ ||
       text ~ /(^|[^[:alnum:]_.-])(\.no-mistakes|\.treehouse)\// ||
       text ~ /(^|[^[:alnum:]_])(private proof|private evidence|local proof|local evidence)[[:space:]]*:/)

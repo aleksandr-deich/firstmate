@@ -12,6 +12,13 @@ CHECK="$ROOT/bin/fm-public-text-check.sh"
 unsafe=(
   'Private proof: /Users/example/private/report.md'
   '`/home/example/proof.txt`'
+  'Reproduced from /Users/alice'
+  'Reproduced from /home/alice'
+  'Reproduced from C:\Users\alice'
+  'Reproduced from C:/Users/alice'
+  'Reproduced from `/Users/alice`.'
+  'Reproduced from (/home/alice).'
+  'Reproduced from "C:\Users\alice".'
   'Evidence at /private/var/folders/example/report.md'
   'Evidence: /private/tmp/claude-12345/proof.md'
   'Evidence: /var/folders/example/session/proof.md'
@@ -23,6 +30,21 @@ unsafe=(
   'Private evidence: state/example-task.status'
   'Evidence: .no-mistakes/runs/example/proof.md'
   'Evidence: http://localhost:8080/proof'
+  'Evidence: http://localhost?report=1'
+  'Evidence: http://localhost#report'
+  'Evidence: http://localhost'
+  'Evidence: (http://localhost).'
+  'Evidence: http://localhost./proof'
+  'Evidence: http://reader:secret@localhost?report=1'
+  'Evidence: http://169.254.1.20/report'
+  'Evidence: http://[fd12::1]/report'
+  'Evidence: https://[fc00::1]:8080?report=1'
+  'Evidence: http://[fe80::1%25en0]/report'
+  'Evidence: http://[::1]?report=1'
+  'Evidence: http://[0:0:0:0:0:0:0:1]/report'
+  'Evidence: http://[::ffff:192.168.1.20]/report'
+  'Evidence: https://proof.local?report=1'
+  'Public then private: https://example.org/report http://localhost?report=1'
   'Evidence: https://proof.local/report'
   'Evidence: http://192.168.1.20/private/report.md'
   'Evidence: http://10.0.0.5/proof'
@@ -48,11 +70,16 @@ Source: tests/benchmark.test.sh; state/parser.go; data/schema/report.md.
 Public proof: https://github.com/example/repo/actions/runs/123
 Public URL paths stay intact: https://example.org/home/example/report.md
 Public host outside the private range: https://172.32.0.1/proof
+Public IPv6 host: https://[2606:4700:4700::1111]/report
+Public authorities: https://localhost.example.org?report=1, https://proof.local.example.org/report.
+Public URL components: https://example.org?next=http-localhost, https://example.org/#localhost.
+Public URL credentials: https://localhost@example.org/report
 Intended system examples: /usr/bin/env, /etc/hosts and /dev/null.
 Web route example: /api/v1/users.
 Generic maintainer examples: ~/.factory/settings.json, ~/.factory/..., ~/.config/..., /opt/homebrew, /tmp/.
 Other generic examples: /usr/local, /etc, /tmp/example.txt, ~/.config/app/settings.json.
 Generic placeholders: /Users/<user>/project/notes.txt, /home/<name>/notes.txt, C:\Users\<name>\notes.txt, /private/tmp/claude-<uid>/notes.txt.
+Terminal placeholders: /Users/<user>, /home/<name>, C:\Users\<name>.
 EOF
 "$CHECK" "$TMP_ROOT/public" || fail 'valid public explanation rejected'
 "$CHECK" - < "$TMP_ROOT/public" || fail 'stdin public explanation rejected'
