@@ -1,0 +1,10 @@
+Real fm-bootstrap.sh; simulated installed-tool versions via existing test fixtures (not a live toolchain).
+
+Installed version: no-mistakes version v1.79.4 (fake)
+MISSING: no-mistakes (install: curl -fsSL https://raw.githubusercontent.com/kunchenguid/no-mistakes/main/docs/install.sh | sh)
+
+Installed version: no-mistakes version v1.80.0 (fake)
+(silent: no upgrade requested)
+
+Installed version: no-mistakes development build
+MISSING: no-mistakes (install: curl -fsSL https://raw.githubusercontent.com/kunchenguid/no-mistakes/main/docs/install.sh | sh)
