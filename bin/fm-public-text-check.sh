@@ -2,8 +2,8 @@
 # Public evidence policy and deterministic text check for Firstmate publication.
 # Public PR descriptions, comments, review descriptions and Relay replies use
 # self-contained factual explanations or verified public URLs as evidence.
-# Keep machine-local paths and local-only evidence references in private task
-# records, not in publication text, even when labeled "Private proof".
+# Keep machine-identifying paths and local-only evidence references in private
+# task records, not in publication text, even when labeled "Private proof".
 # Generic documentation paths (tilde, system paths, bare temporary files, and
 # placeholders), repository-relative paths, and web routes remain valid.
 # Write a refused personal path generically with ~ or a <user>/<session> placeholder.

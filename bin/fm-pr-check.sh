@@ -132,7 +132,7 @@ if [ "$PROVIDER" = forgejo ]; then
 fi
 
 # The draft state is read before anything is recorded or armed. Only a positive
-# draft reading refuses, because an unreadable one must not block arming.
+# draft reading refuses at this step; the separate public-text read must succeed.
 if [ "$PROVIDER" = github ] && [ "${FM_PR_CHECK_MERGE:-}" != 1 ] && command -v gh >/dev/null 2>&1 && command -v jq >/dev/null 2>&1; then
   DRAFT_JSON=$(gh pr view "$URL" --json isDraft 2>/dev/null || true)
   if [ "$(fm_pr_json_draft_state "$DRAFT_JSON")" = true ]; then
