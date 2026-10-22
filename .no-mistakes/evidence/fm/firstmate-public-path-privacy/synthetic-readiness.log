@@ -1,0 +1,33 @@
+ok - both PR delivery modes refuse unsafe or unreadable public evidence before readiness
+
+=== synthetic GitHub readiness: direct-PR / flagged ===
+exit=1
+error: publication text contains a local or private reference at line 2; retain evidence privately and supply public facts or a verified public URL
+error: public PR text must be corrected before reporting ready; original evidence stays private
+merge_monitor_armed=false
+
+=== synthetic GitHub readiness: direct-PR / unreadable ===
+exit=1
+error: public PR text could not be read; readiness is unconfirmed; retry when the forge is available
+merge_monitor_armed=false
+
+=== synthetic GitHub readiness: direct-PR / clean ===
+exit=0
+pr=https://github.com/example/repo/pull/37
+merge_monitor_armed=true
+
+=== synthetic GitHub readiness: no-mistakes / flagged ===
+exit=1
+error: publication text contains a local or private reference at line 2; retain evidence privately and supply public facts or a verified public URL
+error: public PR text must be corrected before reporting ready; original evidence stays private
+merge_monitor_armed=false
+
+=== synthetic GitHub readiness: no-mistakes / unreadable ===
+exit=1
+error: public PR text could not be read; readiness is unconfirmed; retry when the forge is available
+merge_monitor_armed=false
+
+=== synthetic GitHub readiness: no-mistakes / clean ===
+exit=0
+pr=https://github.com/example/repo/pull/37
+merge_monitor_armed=true

@@ -1,0 +1,145 @@
+=== checker: personal home ===
+synthetic input: Reproduced from /Users/alice
+exit=1; original_unchanged=true
+error: publication text contains a local or private reference at line 1; retain evidence privately and supply public facts or a verified public URL
+=== checker: private home ===
+synthetic input: Evidence: /workspace/firstmate/data/task/report.md
+exit=1; original_unchanged=true
+error: publication text contains a local or private reference at line 1; retain evidence privately and supply public facts or a verified public URL
+=== checker: session temp ===
+synthetic input: Evidence: /private/tmp/claude-12345/proof.md
+exit=1; original_unchanged=true
+error: publication text contains a local or private reference at line 1; retain evidence privately and supply public facts or a verified public URL
+=== checker: private citation ===
+synthetic input: Private proof: report.md
+exit=1; original_unchanged=true
+error: publication text contains a local or private reference at line 1; retain evidence privately and supply public facts or a verified public URL
+=== checker: adjacent URL table ===
+synthetic input: |https://example.org/results|http://192.168.1.20/report|
+exit=1; original_unchanged=true
+error: publication text contains a local or private reference at line 1; retain evidence privately and supply public facts or a verified public URL
+=== checker: adjacent personal path ===
+synthetic input: |https://example.org/results|/Users/alice/report|
+exit=1; original_unchanged=true
+error: publication text contains a local or private reference at line 1; retain evidence privately and supply public facts or a verified public URL
+=== checker: mapped IPv6 ===
+synthetic input: Evidence: http://[::ffff:c0a8:114]/report
+exit=1; original_unchanged=true
+error: publication text contains a local or private reference at line 1; retain evidence privately and supply public facts or a verified public URL
+=== checker: mapped loopback ===
+synthetic input: Evidence: http://[::ffff:7f00:1]/report
+exit=1; original_unchanged=true
+error: publication text contains a local or private reference at line 1; retain evidence privately and supply public facts or a verified public URL
+=== checker: generic docs ===
+synthetic input: ~/.config/app /opt/homebrew /tmp/example.txt /usr/bin/env /etc/hosts /dev/null /api/v1/users /Users/<user>/notes
+exit=0; original_unchanged=true
+=== checker: factual public explanation ===
+synthetic input: Benchmark: 50 iterations passed without oracle mismatches. Source: tests/benchmark.test.sh.
+exit=0; original_unchanged=true
+=== checker: public URL path ===
+synthetic input: https://example.org/home/alice/report
+exit=0; original_unchanged=true
+
+=== real Relay dry-run: answer / personal home ===
+exit=1
+error: publication text contains a local or private reference at line 1; retain evidence privately and supply public facts or a verified public URL
+outbox_created=false
+
+=== real Relay dry-run: answer / private home ===
+exit=1
+error: publication text contains a local or private reference at line 1; retain evidence privately and supply public facts or a verified public URL
+outbox_created=false
+
+=== real Relay dry-run: answer / session temp ===
+exit=1
+error: publication text contains a local or private reference at line 1; retain evidence privately and supply public facts or a verified public URL
+outbox_created=false
+
+=== real Relay dry-run: answer / private citation ===
+exit=1
+error: publication text contains a local or private reference at line 1; retain evidence privately and supply public facts or a verified public URL
+outbox_created=false
+
+=== real Relay dry-run: answer / adjacent URL table ===
+exit=1
+error: publication text contains a local or private reference at line 1; retain evidence privately and supply public facts or a verified public URL
+outbox_created=false
+
+=== real Relay dry-run: answer / adjacent personal path ===
+exit=1
+error: publication text contains a local or private reference at line 1; retain evidence privately and supply public facts or a verified public URL
+outbox_created=false
+
+=== real Relay dry-run: answer / mapped IPv6 ===
+exit=1
+error: publication text contains a local or private reference at line 1; retain evidence privately and supply public facts or a verified public URL
+outbox_created=false
+
+=== real Relay dry-run: answer / mapped loopback ===
+exit=1
+error: publication text contains a local or private reference at line 1; retain evidence privately and supply public facts or a verified public URL
+outbox_created=false
+
+=== real Relay dry-run: answer / generic docs ===
+exit=0
+outbox payload: {"request_id": "synthetic-request", "text": "~/.config/app /opt/homebrew /tmp/example.txt /usr/bin/env /etc/hosts /dev/null /api/v1/users /Users/<user>/notes"}
+
+=== real Relay dry-run: answer / factual public explanation ===
+exit=0
+outbox payload: {"request_id": "synthetic-request", "text": "Benchmark: 50 iterations passed without oracle mismatches. Source: tests/benchmark.test.sh."}
+
+=== real Relay dry-run: answer / public URL path ===
+exit=0
+outbox payload: {"request_id": "synthetic-request", "text": "https://example.org/home/alice/report"}
+
+=== real Relay dry-run: followup / personal home ===
+exit=1
+error: publication text contains a local or private reference at line 1; retain evidence privately and supply public facts or a verified public URL
+outbox_created=false
+
+=== real Relay dry-run: followup / private home ===
+exit=1
+error: publication text contains a local or private reference at line 1; retain evidence privately and supply public facts or a verified public URL
+outbox_created=false
+
+=== real Relay dry-run: followup / session temp ===
+exit=1
+error: publication text contains a local or private reference at line 1; retain evidence privately and supply public facts or a verified public URL
+outbox_created=false
+
+=== real Relay dry-run: followup / private citation ===
+exit=1
+error: publication text contains a local or private reference at line 1; retain evidence privately and supply public facts or a verified public URL
+outbox_created=false
+
+=== real Relay dry-run: followup / adjacent URL table ===
+exit=1
+error: publication text contains a local or private reference at line 1; retain evidence privately and supply public facts or a verified public URL
+outbox_created=false
+
+=== real Relay dry-run: followup / adjacent personal path ===
+exit=1
+error: publication text contains a local or private reference at line 1; retain evidence privately and supply public facts or a verified public URL
+outbox_created=false
+
+=== real Relay dry-run: followup / mapped IPv6 ===
+exit=1
+error: publication text contains a local or private reference at line 1; retain evidence privately and supply public facts or a verified public URL
+outbox_created=false
+
+=== real Relay dry-run: followup / mapped loopback ===
+exit=1
+error: publication text contains a local or private reference at line 1; retain evidence privately and supply public facts or a verified public URL
+outbox_created=false
+
+=== real Relay dry-run: followup / generic docs ===
+exit=0
+outbox payload: {"request_id": "synthetic-request", "text": "~/.config/app /opt/homebrew /tmp/example.txt /usr/bin/env /etc/hosts /dev/null /api/v1/users /Users/<user>/notes", "endpoint": "followup"}
+
+=== real Relay dry-run: followup / factual public explanation ===
+exit=0
+outbox payload: {"request_id": "synthetic-request", "text": "Benchmark: 50 iterations passed without oracle mismatches. Source: tests/benchmark.test.sh.", "endpoint": "followup"}
+
+=== real Relay dry-run: followup / public URL path ===
+exit=0
+outbox payload: {"request_id": "synthetic-request", "text": "https://example.org/home/alice/report", "endpoint": "followup"}
