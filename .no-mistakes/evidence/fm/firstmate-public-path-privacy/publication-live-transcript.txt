@@ -1,0 +1,80 @@
+## personal home
+exit: 1
+
+error: publication text contains a local or private reference at line 1; retain evidence privately and supply public facts or a verified public URL
+Original text unchanged; rejected text not echoed.
+## private task evidence
+exit: 1
+
+error: publication text contains a local or private reference at line 1; retain evidence privately and supply public facts or a verified public URL
+Original text unchanged; rejected text not echoed.
+## user temporary path
+exit: 1
+
+error: publication text contains a local or private reference at line 1; retain evidence privately and supply public facts or a verified public URL
+Original text unchanged; rejected text not echoed.
+## adjacent table private host
+exit: 1
+
+error: publication text contains a local or private reference at line 1; retain evidence privately and supply public facts or a verified public URL
+Original text unchanged; rejected text not echoed.
+## adjacent table home
+exit: 1
+
+error: publication text contains a local or private reference at line 1; retain evidence privately and supply public facts or a verified public URL
+Original text unchanged; rejected text not echoed.
+## mapped IPv6 private
+exit: 1
+
+error: publication text contains a local or private reference at line 1; retain evidence privately and supply public facts or a verified public URL
+Original text unchanged; rejected text not echoed.
+## link-local URL
+exit: 1
+
+error: publication text contains a local or private reference at line 1; retain evidence privately and supply public facts or a verified public URL
+Original text unchanged; rejected text not echoed.
+## localhost query
+exit: 1
+
+error: publication text contains a local or private reference at line 1; retain evidence privately and supply public facts or a verified public URL
+Original text unchanged; rejected text not echoed.
+## private citation
+exit: 1
+
+error: publication text contains a local or private reference at line 1; retain evidence privately and supply public facts or a verified public URL
+Original text unchanged; rejected text not echoed.
+## generic path examples
+exit: 0
+
+
+Examples: ~/.config/app, /opt/homebrew, /tmp/example.txt, /api/v1/users, /usr/bin/env, /etc/hosts, /dev/null.
+## public URL and repository path
+exit: 0
+
+
+Source: tests/benchmark.test.sh. Public URL: https://example.org/home/alice. 50 comparisons passed.
+## answer refuses private evidence
+exit: 1
+
+error: publication text contains a local or private reference at line 1; retain evidence privately and supply public facts or a verified public URL
+No outbound record created.
+## answer previews corrected facts
+exit: 0
+synthetic-request
+fm-x-reply: DRY RUN - would POST to https://myfirstmate.io/connector/answer (recorded: state/x-outbox/synthetic-request.json): Benchmark: 50 comparisons completed without oracle mismatches.
+Persisted outbound payload: {"request_id": "synthetic-request", "text": "Benchmark: 50 comparisons completed without oracle mismatches."}
+## followup refuses private evidence
+exit: 1
+
+error: publication text contains a local or private reference at line 1; retain evidence privately and supply public facts or a verified public URL
+No outbound record created.
+## followup previews corrected facts
+exit: 0
+synthetic-request
+fm-x-reply: DRY RUN - would POST to https://myfirstmate.io/connector/followup (recorded: state/x-outbox/synthetic-request.json): Benchmark: 50 comparisons completed without oracle mismatches.
+Persisted outbound payload: {"endpoint": "followup", "request_id": "synthetic-request", "text": "Benchmark: 50 comparisons completed without oracle mismatches."}
+## Unreadable GitHub text refuses readiness using real gh, isolated empty credentials
+exit: 1
+
+error: public PR text could not be read; readiness is unconfirmed; retry when the forge is available
+Metadata unchanged; no merge-monitor check created. Restore readable forge access and retry.

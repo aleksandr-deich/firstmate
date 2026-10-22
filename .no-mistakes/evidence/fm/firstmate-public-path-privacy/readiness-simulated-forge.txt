@@ -1,0 +1,3 @@
+ok - both PR delivery modes refuse unsafe or unreadable public evidence before readiness
+direct-PR: corrected self-contained facts registered; private merge-monitor check created.
+no-mistakes: corrected self-contained facts registered; private merge-monitor check created.
