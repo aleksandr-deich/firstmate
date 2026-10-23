@@ -8,6 +8,7 @@ Firstmate-authored constraints, acceptance criteria, implementation details, dec
 The Definition of done's rule that `--intent` must be self-sufficient still governs the string you pass: resolve any report, decision, or PR the intent below refers to into its substance rather than passing the pointer.
 
 ## Captain intent authorized for --intent
-Keep the exact words "blue widgets", including this correction.
-## Additional requirement
-Do not rewrite the private handover.
+Keep my exact "quoted words"; do not rephrase.
+## Acceptance details
+Preserve $HOME and $(printf unsafe); these are literal text.
+Do not publish this 2026-09-26 correction.

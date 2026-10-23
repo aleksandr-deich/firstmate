@@ -1,0 +1,63 @@
+Triggers a pipeline run for the current branch and drives it. Without
+--yes it blocks until the first approval gate, CI-ready point, or final outcome and
+prints it. With --yes it auto-resolves eligible gates (fixing actionable
+findings - including ask-user findings, with no escalation - then
+accepting the result) until a decision point or outcome.
+Protected-path and Test unvalidated-work refusals require an explicit
+response, even with --yes.
+
+--intent is required when starting a new run: pass what the user set out
+to accomplish (the goal behind the change, not a description of the diff)
+so no-mistakes uses it directly instead of inferring it from transcripts.
+
+--wait bounds this hold (default 8m) so an agent harness with a 10-minute
+tool cap gets a structured return instead of an unbounded hang. Elapsed wait
+is not a failed run: inspect with axi status and reattach. A slow live daemon
+is retried after a health probe rather than reported as I/O failure.
+
+--launch-nonce with --validation-generation enables strict proof mode.
+Before driving, AXI emits a receipt with the durable run ID, created or
+reused disposition, full submitted head, and a digest of the exact
+persisted intent; raw intent is never included.
+
+--base-branch targets an integration branch other than the repository default
+for this run only (for example an epic branch). It overrides pr.base_branch
+in repo config and is persisted on the run for rebase, PR, and CI steps.
+
+--no-publish-intent keeps the generated public Intent section out of the
+PR body for this run. It is tighten-only: it can never publish intent on a
+repository whose trusted pr.publish_intent disabled it. The full intent
+still reaches every step prompt except the PR-drafting turns, which then
+draft from the diff and commit messages only. It is persisted on the run;
+the global intent.publish_intent: false default applies to runs started
+without it. The running daemon must honor it; an older daemon is refused.
+
+--model and/or --effort opt into an immutable Pi profile for a new run.
+An omitted field comes from agent_config.pi; both must resolve. Requires
+Pi-only agents; raw native selection flags conflict. The pin outranks
+review-role profiles and survives config edits, retries and recovery.
+Omit flags to reattach; a different selection cannot change an active run.
+
+The calling agent drives AXI approval gates but does not become the pipeline
+agent. The daemon requires a supported native agent binary, the `agent: cursor`
+or `agent: devin` ACP alias, or an explicit `acp:<target>` through `acpx`, and
+fails before the first step when none can run.
+
+Commit post-pipeline follow-up work on top of the existing branch so every pipeline fix commit remains present. Never abort-and-restart, reset, or replace the branch in a way that drops prior gate-fix commits.
+
+Usage:
+  no-mistakes axi run [flags]
+
+Flags:
+      --base-branch string             integration branch to open the PR against for this run only (overrides pr.base_branch)
+      --effort string                  Pi reasoning effort to pin: minimal, low, medium, high, xhigh, max (overrides agent_config.pi.effort)
+  -h, --help                           help for run
+      --intent string                  what the user set out to accomplish (not a description of the diff); used instead of inferring from transcripts (required to start a run)
+      --launch-nonce string            opaque nonce for a daemon-bound pre-drive launch receipt
+      --model string                   exact Pi provider/model ID to pin for a new run (overrides agent_config.pi.model)
+      --no-publish-intent              keep the generated Intent section out of the PR body for this run (tighten-only; full intent still reaches every step prompt except PR drafting)
+      --skip string                    comma-separated pipeline steps to skip
+      --validation-generation string   opaque generation bound to --launch-nonce proof mode
+      --verification-plan string       capture a nonempty UTF-8 verification plan as separate run evidence (new runs only)
+      --wait duration                  maximum time to block driving this run before returning so the caller can reattach (default 8m0s)
+  -y, --yes                            auto-resolve eligible gates (fix findings, then accept) until a decision point or outcome; protected-path and Test unvalidated-work refusals require an explicit response
