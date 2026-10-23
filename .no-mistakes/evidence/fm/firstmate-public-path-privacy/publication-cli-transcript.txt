@@ -1,0 +1,49 @@
+CHECK personal-home child: exit=1
+error: publication text contains a local or private reference at line 1; retain evidence privately and supply public facts or a verified public URL
+CHECK terminal personal home: exit=1
+error: publication text contains a local or private reference at line 1; retain evidence privately and supply public facts or a verified public URL
+CHECK Windows personal home: exit=1
+error: publication text contains a local or private reference at line 1; retain evidence privately and supply public facts or a verified public URL
+CHECK private Firstmate evidence: exit=1
+error: publication text contains a local or private reference at line 1; retain evidence privately and supply public facts or a verified public URL
+CHECK session-specific temporary evidence: exit=1
+error: publication text contains a local or private reference at line 1; retain evidence privately and supply public facts or a verified public URL
+CHECK local-only evidence label: exit=1
+error: publication text contains a local or private reference at line 1; retain evidence privately and supply public facts or a verified public URL
+CHECK file URL: exit=1
+error: publication text contains a local or private reference at line 1; retain evidence privately and supply public facts or a verified public URL
+CHECK Markdown adjacent private URL: exit=1
+error: publication text contains a local or private reference at line 1; retain evidence privately and supply public facts or a verified public URL
+CHECK Markdown adjacent personal path: exit=1
+error: publication text contains a local or private reference at line 1; retain evidence privately and supply public facts or a verified public URL
+CHECK IPv6 mapped hex private host: exit=1
+error: publication text contains a local or private reference at line 1; retain evidence privately and supply public facts or a verified public URL
+CHECK IPv6 private host: exit=1
+error: publication text contains a local or private reference at line 1; retain evidence privately and supply public facts or a verified public URL
+CHECK link-local private host: exit=1
+error: publication text contains a local or private reference at line 1; retain evidence privately and supply public facts or a verified public URL
+CHECK localhost query boundary: exit=1
+error: publication text contains a local or private reference at line 1; retain evidence privately and supply public facts or a verified public URL
+CHECK generic examples and factual public explanation: exit=0
+CHECK file retained byte-for-byte: exit=1
+error: publication text contains a local or private reference at line 1; retain evidence privately and supply public facts or a verified public URL
+CHECK missing file refused: exit=1
+error: publication text is unreadable
+RELAY answer flagged: exit=1
+error: publication text contains a local or private reference at line 1; retain evidence privately and supply public facts or a verified public URL
+RELAY answer corrected: exit=0
+synthetic-request
+fm-x-reply: DRY RUN - would POST to https://example.invalid/connector/answer (recorded: state/x-outbox/synthetic-request.json): Benchmark: 50 iterations passed without oracle mismatches.
+Persisted dry-run outbox: {"request_id": "synthetic-request", "text": "Benchmark: 50 iterations passed without oracle mismatches."}
+RELAY followup flagged: exit=1
+error: publication text contains a local or private reference at line 1; retain evidence privately and supply public facts or a verified public URL
+RELAY followup corrected: exit=0
+synthetic-request
+fm-x-reply: DRY RUN - would POST to https://example.invalid/connector/followup (recorded: state/x-outbox/synthetic-request.json): Benchmark: 50 iterations passed without oracle mismatches.
+Persisted dry-run outbox: {"endpoint": "followup", "request_id": "synthetic-request", "text": "Benchmark: 50 iterations passed without oracle mismatches."}
+READINESS direct-PR real gh with isolated unauthenticated config: exit=1
+error: public PR text could not be read; readiness is unconfirmed; retry when the forge is available
+Metadata unchanged; no merge watcher or poll sidecar created.
+READINESS no-mistakes real gh with isolated unauthenticated config: exit=1
+error: public PR text could not be read; readiness is unconfirmed; retry when the forge is available
+Metadata unchanged; no merge watcher or poll sidecar created.
